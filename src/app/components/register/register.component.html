@@ -1,0 +1,74 @@
+<form (ngSubmit)="register()" #registerForm="ngForm">
+  <!-- Name Field -->
+  <label for="name">Name:</label>
+  <input
+    type="text"
+    id="name"
+    name="name"
+    [(ngModel)]="user.name"
+    #name="ngModel"
+    required
+  />
+  <div *ngIf="name.invalid && name.touched" class="error">
+    Name is required.
+  </div>
+
+  <!-- Email Field -->
+  <label for="email">Email:</label>
+  <input
+    type="email"
+    id="email"
+    name="email"
+    [(ngModel)]="user.email"
+    #email="ngModel"
+    required
+  />
+  <div *ngIf="email.invalid && email.touched" class="error">
+    Valid email is required.
+  </div>
+
+  <!-- Password Field -->
+  <label for="password">Password:</label>
+  <input
+    type="password"
+    id="password"
+    name="password"
+    [(ngModel)]="user.password"
+    #password="ngModel"
+    required
+  />
+  <div *ngIf="password.invalid && password.touched" class="error">
+    Password is required.
+  </div>
+
+  <!-- Date of Birth Field -->
+  <label for="dateOfBirth">Date of Birth:</label>
+  <input
+    type="date"
+    id="dateOfBirth"
+    name="dateOfBirth"
+    [(ngModel)]="user.dateOfBirth"
+    #dateOfBirth="ngModel"
+    required
+  />
+  <div *ngIf="dateOfBirth.invalid && dateOfBirth.touched" class="error">
+    Date of birth is required.
+  </div>
+
+  <!-- Profile Picture Field -->
+  <label for="profilePic">Profile Picture:</label>
+  <input
+    type="file"
+    id="profilePic"
+    (change)="onFileSelected($event, 'profilePic')"
+  />
+  <span class="error" *ngIf="profilePicError">{{ profilePicError }}</span>
+
+  <!-- CV Field -->
+  <label for="cv">CV:</label>
+  <input type="file" id="cv" (change)="onFileSelected($event, 'cv')" />
+  <span class="error" *ngIf="cvError">{{ cvError }}</span>
+
+  <!-- Submit Button -->
+  <button type="submit" [disabled]="registerForm.invalid">Register</button>
+</form>

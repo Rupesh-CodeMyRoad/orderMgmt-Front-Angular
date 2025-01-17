@@ -1,0 +1,41 @@
+<div class="container">
+  <h1>Customer Management</h1>
+
+  <form (ngSubmit)="saveCustomer()">
+    <div>
+      <label>Name:</label>
+      <input [(ngModel)]="customer.name" name="name" required />
+    </div>
+    <div>
+      <label>Mobile:</label>
+      <input [(ngModel)]="customer.mobile" name="mobile" required />
+    </div>
+    <div>
+      <label>Email:</label>
+      <input [(ngModel)]="customer.email" name="email" required />
+    </div>
+    <button type="submit">{{ isEdit ? "Update" : "Add" }}</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers">
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.mobile }}</td>
+        <td>{{ customer.email }}</td>
+        <td>
+          <button (click)="editCustomer(customer)">Edit</button>
+          <button (click)="deleteCustomer(customer.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

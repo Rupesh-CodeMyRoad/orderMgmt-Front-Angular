@@ -1,0 +1,35 @@
+<h1>DashBoard</h1>
+
+<div *ngIf="isAdmin">
+  <h2>Admin Section</h2>
+  <!-- User Table -->
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of nonAdminUsers">
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="isUser">
+  <div class="dashboard">
+    <h1>Welcome, {{ userName }}</h1>
+    <button class="nav-btn" (click)="navigateToCustomerDetails()">
+      Customer Details
+    </button>
+    <br />
+    <div></div>
+  </div>
+</div>
+
+<button (click)="logout()">Logout</button>
