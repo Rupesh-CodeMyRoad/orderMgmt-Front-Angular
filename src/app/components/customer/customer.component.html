@@ -1,23 +1,73 @@
-<div class="container">
+<div class="customer-management">
+  <button class="btn-back" (click)="navigateToDashboard()">
+    Back to Dashboard
+  </button>
   <h1>Customer Management</h1>
 
-  <form (ngSubmit)="saveCustomer()">
-    <div>
-      <label>Name:</label>
-      <input [(ngModel)]="customer.name" name="name" required />
+  <!-- Display error message -->
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <!-- Add/Update Customer Form -->
+  <form
+    (ngSubmit)="saveCustomer()"
+    class="customer-form"
+    #customerForm="ngForm"
+  >
+    <!-- Name Field -->
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input
+        id="name"
+        [(ngModel)]="customer.name"
+        name="name"
+        required
+        #name="ngModel"
+      />
+      <div *ngIf="name.invalid && name.touched" class="validation-error">
+        Name is required.
+      </div>
     </div>
-    <div>
-      <label>Mobile:</label>
-      <input [(ngModel)]="customer.mobile" name="mobile" required />
+
+    <!-- Mobile Field -->
+    <div class="form-group">
+      <label for="mobile">Mobile:</label>
+      <input
+        id="mobile"
+        [(ngModel)]="customer.mobile"
+        name="mobile"
+        required
+        pattern="^[0-9]{10}$"
+        #mobile="ngModel"
+      />
+      <div *ngIf="mobile.invalid && mobile.touched" class="validation-error">
+        Mobile must be a 10-digit number.
+      </div>
     </div>
-    <div>
-      <label>Email:</label>
-      <input [(ngModel)]="customer.email" name="email" required />
+
+    <!-- Email Field -->
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input
+        id="email"
+        [(ngModel)]="customer.email"
+        name="email"
+        required
+        email
+        #email="ngModel"
+      />
+      <div *ngIf="email.invalid && email.touched" class="validation-error">
+        Email must be valid and contain "&#64;".
+      </div>
     </div>
-    <button type="submit">{{ isEdit ? "Update" : "Add" }}</button>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn-submit" [disabled]="customerForm.invalid">
+      {{ isEdit ? "Update" : "Add" }}
+    </button>
   </form>
 
-  <table>
+  <!-- Customer Table -->
+  <table class="customer-table">
     <thead>
       <tr>
         <th>Name</th>
@@ -31,9 +81,13 @@
         <td>{{ customer.name }}</td>
         <td>{{ customer.mobile }}</td>
         <td>{{ customer.email }}</td>
-        <td>
-          <button (click)="editCustomer(customer)">Edit</button>
-          <button (click)="deleteCustomer(customer.id)">Delete</button>
+        <td class="actions-cell">
+          <button class="btn-edit" (click)="editCustomer(customer)">
+            Edit
+          </button>
+          <button class="btn-delete" (click)="deleteCustomer(customer.id)">
+            Delete
+          </button>
         </td>
       </tr>
     </tbody>

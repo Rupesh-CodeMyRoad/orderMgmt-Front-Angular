@@ -1,0 +1,135 @@
+<div class="order-management">
+  <div class="form-section">
+    <button class="btn-back" (click)="navigateToDashboard()">
+      Back to Dashboard
+    </button>
+    <h1>Order Management</h1>
+
+    <!-- Add/Update Order Form -->
+    <h2>{{ isEdit ? "Update Order" : "Create Order" }}</h2>
+    <form (ngSubmit)="saveOrder()" #orderForm="ngForm" class="order-form">
+      <!-- Customer Dropdown -->
+      <div class="form-group">
+        <label for="customer">Customer:</label>
+        <select
+          id="customer"
+          [(ngModel)]="order.customer.id"
+          name="customer"
+          required
+          #customer="ngModel"
+          class="form-control"
+        >
+          <option value="" disabled selected>Select Customer</option>
+          <option *ngFor="let customer of customers" [value]="customer.id">
+            {{ customer.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="customer.invalid && customer.touched"
+          class="validation-error"
+        >
+          Please select a customer.
+        </div>
+      </div>
+
+      <!-- Services Checkboxes -->
+      <div class="form-group">
+        <label for="category">Services:</label>
+        <div class="service-checkbox-group">
+          <div *ngFor="let category of categories" class="service-checkbox">
+            <input
+              type="checkbox"
+              [value]="category.id"
+              (change)="onCheckboxChange($event, category.id)"
+              class="form-check-input"
+            />
+            <span class="service-name">{{ category.name }}</span>
+          </div>
+        </div>
+        <div *ngIf="order.services.length === 0" class="validation-error">
+          Please select at least one service.
+        </div>
+      </div>
+
+      <!-- Total Bill -->
+      <div class="form-group">
+        <label for="totalBill">Total Bill:</label>
+        <input
+          id="totalBill"
+          [(ngModel)]="order.totalBill"
+          name="totalBill"
+          type="number"
+          required
+          #totalBill="ngModel"
+          min="1"
+          class="form-control"
+        />
+        <div
+          *ngIf="totalBill.invalid && totalBill.touched"
+          class="validation-error"
+        >
+          Please enter a valid total bill greater than 0.
+        </div>
+      </div>
+
+      <!-- Message -->
+      <div class="form-group">
+        <label for="message">Message:</label>
+        <textarea
+          id="message"
+          [(ngModel)]="order.message"
+          name="message"
+          placeholder="Enter Order Message"
+          class="form-control"
+        ></textarea>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="btn-submit"
+        [disabled]="
+          customer.invalid || order.services.length === 0 || totalBill.invalid
+        "
+      >
+        {{ isEdit ? "Update" : "Create" }} Order
+      </button>
+    </form>
+  </div>
+
+  <div class="table-section">
+    <h2>Orders</h2>
+    <table class="order-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Customer</th>
+          <th>Services</th>
+          <th>Total Bill</th>
+          <th>Message</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{ order.id }}</td>
+          <td>{{ order.customer?.name }}</td>
+          <td>{{ order.serviceNames }}</td>
+          <td>${{ order.totalBill }}</td>
+          <td>{{ order.message }}</td>
+          <td class="actions-cell">
+            <button class="btn btn-edit" (click)="editOrder(order)">
+              Edit
+            </button>
+            <button class="btn btn-delete" (click)="deleteOrder(order.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="nav-btn" (click)="navigateTopdfDownlaod()">
+      Download (Pdf) <br />Customer-Order Data
+    </button>
+  </div>
+</div>

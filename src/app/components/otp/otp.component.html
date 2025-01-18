@@ -1,7 +1,37 @@
-<form (ngSubmit)="verifyOtp()" #OtpForm="ngForm">
-  <label>
-    OTP:
-    <input type="text" [(ngModel)]="otp" name="otp" required />
-  </label>
-  <button type="submit">Verify OTP</button>
-</form>
+<div class="otp-container">
+  <h2>Verify OTP</h2>
+  <p class="otp-expiry">The OTP will expire in 5 minutes.</p>
+  <form (ngSubmit)="verifyOtp()">
+    <div class="otp-inputs">
+      <input
+        type="text"
+        maxlength="1"
+        [(ngModel)]="otp1"
+        name="otp1"
+        required
+      />
+      <input
+        type="text"
+        maxlength="1"
+        [(ngModel)]="otp2"
+        name="otp2"
+        required
+      />
+      <input
+        type="text"
+        maxlength="1"
+        [(ngModel)]="otp3"
+        name="otp3"
+        required
+      />
+      <input
+        type="text"
+        maxlength="1"
+        [(ngModel)]="otp4"
+        name="otp4"
+        required
+      />
+    </div>
+    <button type="submit">Verify OTP</button>
+  </form>
+</div>

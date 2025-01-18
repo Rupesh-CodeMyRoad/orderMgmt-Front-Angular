@@ -79,4 +79,7 @@ export class RegisterComponent {
         error: () => alert('Registration failed! Please try again.'),
       });
   }
+  navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
 }

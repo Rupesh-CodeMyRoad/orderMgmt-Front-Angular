@@ -60,6 +60,34 @@ export class DashboardComponent implements OnInit {
   navigateToCustomerDetails() {
     this.router.navigate(['/customer']);
   }
+  navigateToServiceCategoryDetails() {
+    this.router.navigate(['/category']);
+  }
+  navigateToTakeOrder() {
+    this.router.navigate(['/orders']);
+  }
+
+  navigateTopdfDownlaod() {
+    this.http
+      .get('http://localhost:8080/api/public/download-order-customer-pdf', {
+        responseType: 'blob', // Expect a Blob (binary file)
+        withCredentials: true,
+      })
+      .subscribe({
+        next: (blob) => {
+          // Create a download link
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'Order-Customer.pdf'; // Set the file name
+          a.click();
+          window.URL.revokeObjectURL(url); // Cleanup
+        },
+        error: () => {
+          alert('Failed to export the user list.');
+        },
+      });
+  }
 
   logout() {
     this.http
@@ -74,6 +102,28 @@ export class DashboardComponent implements OnInit {
           this.router.navigate(['/login']); // Redirect to login page
         },
         error: () => alert('Logout failed'),
+      });
+  }
+
+  exportUserListPDF() {
+    this.http
+      .get('http://localhost:8080/api/public/download-non-admin-pdf', {
+        responseType: 'blob', // Expect a Blob (binary file)
+        withCredentials: true,
+      })
+      .subscribe({
+        next: (blob) => {
+          // Create a download link
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'User-List.pdf'; // Set the file name
+          a.click();
+          window.URL.revokeObjectURL(url); // Cleanup
+        },
+        error: () => {
+          alert('Failed to export the user list.');
+        },
       });
   }
 }

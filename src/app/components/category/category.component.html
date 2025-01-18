@@ -1,0 +1,111 @@
+<div class="category-management">
+  <h1>Category and Subcategory Management</h1>
+  <button class="btn-back" (click)="navigateToDashboard()">
+    Back to Dashboard
+  </button>
+
+  <!-- Add/Update Category Form -->
+  <h2>Manage Categories</h2>
+  <form
+    (ngSubmit)="saveCategory()"
+    #categoryForm="ngForm"
+    class="category-form"
+  >
+    <input
+      [(ngModel)]="category.name"
+      name="name"
+      placeholder="Category Name"
+      required
+      #categoryName="ngModel"
+    />
+    <button type="submit" class="btn-submit" [disabled]="categoryForm.invalid">
+      {{ isEdit ? "Update" : "Add" }} Category
+    </button>
+  </form>
+
+  <!-- Categories Table -->
+  <table class="category-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cat of categories">
+        <td>{{ cat.name }}</td>
+        <td>{{ cat.categoryImage || "N/A" }}</td>
+        <td>{{ cat.status }}</td>
+        <td>
+          <button class="btn-edit" (click)="editCategory(cat)">Edit</button>
+          <button class="btn-delete" (click)="deleteCategory(cat.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Add/Update Subcategory Form -->
+  <h2>Manage Subcategories</h2>
+  <form
+    (ngSubmit)="saveSubCategory()"
+    #subCategoryForm="ngForm"
+    class="subcategory-form"
+  >
+    <input
+      [(ngModel)]="subCategory.name"
+      name="name"
+      placeholder="Subcategory Name"
+      required
+      #subCategoryName="ngModel"
+    />
+    <select
+      [(ngModel)]="subCategory.category"
+      name="category"
+      required
+      #subCategoryDropdown="ngModel"
+    >
+      <option [ngValue]="null" disabled selected>Select Category</option>
+      <option *ngFor="let cat of categories" [ngValue]="cat">
+        {{ cat.name }}
+      </option>
+    </select>
+    <button
+      type="submit"
+      class="btn-submit"
+      [disabled]="subCategoryForm.invalid"
+    >
+      {{ isEdit ? "Update" : "Add" }} Subcategory
+    </button>
+  </form>
+
+  <!-- Subcategories Table -->
+  <table class="subcategory-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let subCat of subCategories">
+        <td>{{ subCat.name }}</td>
+        <td>{{ subCat.category?.name }}</td>
+        <td>{{ subCat.status }}</td>
+        <td>
+          <button class="btn-edit" (click)="editSubCategory(subCat)">
+            Edit
+          </button>
+          <button class="btn-delete" (click)="deleteSubCategory(subCat.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

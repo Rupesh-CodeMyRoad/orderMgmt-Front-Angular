@@ -1,32 +1,47 @@
-button {
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
+/* General Container */
+.dashboard-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  box-sizing: border-box;
 }
 
-button:hover {
-  background-color: #ff1a1a;
+/* Headers */
+h1 {
+  font-size: 24px;
+  color: #fda085;
+  margin-bottom: 20px;
 }
-/* Table Styles */
+
+h2 {
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* User Table */
 .user-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 .user-table th,
 .user-table td {
   border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
 }
 
 .user-table th {
-  background-color: #007bff;
-  color: white;
+  background-color: #fda085;
+  color: #ffffff;
   font-weight: bold;
 }
 
@@ -35,9 +50,57 @@ button:hover {
 }
 
 .user-table tr:hover {
-  background-color: #f1f1f1;
+  background-color: #f6d365;
 }
 
-.user-table td {
-  color: #333;
+/* Buttons */
+button {
+  padding: 10px 15px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.nav-btn {
+  background-color: #fda085;
+  color: #ffffff;
+  width: 200px;
+  text-align: center;
+}
+
+.nav-btn:hover {
+  background-color: #f6d365;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn-export {
+  background-color: #4caf50;
+  color: #ffffff;
+}
+
+.btn-export:hover {
+  background-color: #45a049;
+}
+
+.btn-logout {
+  background-color: #ff6b6b;
+  color: #ffffff;
+}
+
+.btn-logout:hover {
+  background-color: #ff4d4d;
+}
+
+/* Dashboard Section */
+.dashboard {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboard button {
+  margin: 10px 0;
 }
